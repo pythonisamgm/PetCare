@@ -17,4 +17,5 @@ public class CreateAppointmentRequest {
     private boolean status;
     private Long idPet;
 
+
 }
