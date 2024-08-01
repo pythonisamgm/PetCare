@@ -24,7 +24,7 @@ public class Pet {
     private Long petId;
 
     @Column(name = "name", nullable = false)
-    private String name;
+    private String petName;
 
     @Column(name = "age", nullable = false)
     private int age;
@@ -48,5 +48,7 @@ public class Pet {
     @JsonIgnoreProperties("pet")
     @OneToMany(mappedBy = "pet")
     private List<Appointment> appointmentsList;
+
+
 }
 

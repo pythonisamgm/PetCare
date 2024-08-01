@@ -25,7 +25,7 @@ public class Guardian {
 
 
     @Column(name = "name", nullable = false)
-    private String name;
+    private String guardianName;
 
     @Column(name = "telephone number", nullable = false)
     private int telephoneNumber;

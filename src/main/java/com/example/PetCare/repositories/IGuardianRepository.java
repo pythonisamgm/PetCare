@@ -1,4 +1,7 @@
 package com.example.PetCare.repositories;
 
-public interface IGuardianRepository {
+import com.example.PetCare.models.Guardian;
+import org.springframework.data.repository.CrudRepository;
+
+public interface IGuardianRepository extends CrudRepository<Guardian,Long>  {
 }
