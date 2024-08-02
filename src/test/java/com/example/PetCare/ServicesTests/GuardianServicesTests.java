@@ -3,7 +3,8 @@ package com.example.PetCare.ServicesTests;
 import com.example.PetCare.models.Guardian;
 import com.example.PetCare.models.Pet;
 import com.example.PetCare.repositories.IGuardianRepository;
-import com.example.PetCare.services.GuardianService;
+import com.example.PetCare.services.GuardianServiceImpl;
+import com.example.PetCare.services.GuardianServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,7 +25,7 @@ class GuardianServicesTests {
     private IGuardianRepository iGuardianRepository;
 
     @InjectMocks
-    private GuardianService guardianService;
+    private GuardianServiceImpl guardianService;
 
     @BeforeEach
     public void setUp(){
@@ -60,7 +61,7 @@ class GuardianServicesTests {
         Guardian guardian = new Guardian(1L, "John Doe", 123456789, null);
         when(iGuardianRepository.findById(1L)).thenReturn(Optional.of(guardian));
 
-        Optional<Guardian> result = guardianService.getByGuardiansById(1L);
+        Optional<Guardian> result = guardianService.getGuardianById(1L);
 
         assertTrue(result.isPresent());
         assertEquals("John Doe", result.get().getGuardianName());

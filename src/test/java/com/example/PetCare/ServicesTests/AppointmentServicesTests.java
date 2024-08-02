@@ -1,12 +1,12 @@
 package com.example.PetCare.ServicesTests;
 
-import com.example.PetCare.dto.CreateAppointmentRequest;
 import com.example.PetCare.models.Appointment;
 import com.example.PetCare.models.Guardian;
 import com.example.PetCare.models.Pet;
 import com.example.PetCare.repositories.IAppointmentRepository;
 import com.example.PetCare.repositories.IPetRepository;
-import com.example.PetCare.services.AppointmentService;
+import com.example.PetCare.services.AppointmentServiceImpl;
+import com.example.PetCare.services.AppointmentServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -31,7 +31,7 @@ public class AppointmentServicesTests {
     private IPetRepository iPetRepository;
 
     @InjectMocks
-    private AppointmentService appointmentService;
+    private AppointmentServiceImpl appointmentService;
     private Appointment appointment;
     private Pet pet;
     @BeforeEach
@@ -41,33 +41,33 @@ public class AppointmentServicesTests {
 
     @Test
     public void test_createAppointment() throws Exception {
-        CreateAppointmentRequest request = new CreateAppointmentRequest();
-        request.setIdPet(1L);
-        request.setDateTime(LocalDateTime.of(2024, 7, 25, 10, 0));
-        request.getConsultType("standard");
-        request.setReason("annual check up");
-        request.setStatus("past");
+        Appointment appointment = new Appointment();
+        appointment.setIdPet(1L);
+        appointment.setDateTime(LocalDateTime.of(2024, 7, 25, 10, 0));
+        appointment.getConsultType("standard");
+        appointment.setReason("annual check up");
+        appointment.setStatus("past");
 
         List<Guardian> guardianList = new ArrayList<>();
         List<Appointment> appointmentList = new ArrayList<>();
         Pet bolita = new Pet(1L, "bolita", 2, "demogorgon", "female", "rabbit","url", guardianList, appointmentList);
         Appointment newAppointment = new Appointment();
         newAppointment.setPet(bolita);
-        newAppointment.setDateTime(request.getDateTime());
-        newAppointment.getConsultType(request.getConsultType());
-        newAppointment.setReason(request.getReason());
-        newAppointment.setStatus(request.getStatus());
+        newAppointment.setDateTime(appointment.getDateTime());
+        newAppointment.getConsultType(appointment.getConsultType());
+        newAppointment.setReason(appointment.getReason());
+        newAppointment.setStatus(appointment.getStatus());
 
         when(iPetRepository.findById(1L)).thenReturn(Optional.of(bolita));
         when(iAppointmentRepository.save(any(Appointment.class))).thenReturn(newAppointment);
 
 
-        Appointment createdAppointment = appointmentService.createAppoinment(request);
+        Appointment createdAppointment = appointmentService.createAppoinment(appointment);
         assertEquals(bolita, createdAppointment.getPet());
-        assertEquals(request.getDateTime(),createdAppointment.getDateTime());
-        assertEquals(request.getConsultType(), createdAppointment.getConsultType());
-        assertEquals(request.getReason(), createdAppointment.getReason());
-        assertEquals(request.getStatus(), createdAppointment.getStatus());
+        assertEquals(appointment.getDateTime(),createdAppointment.getDateTime());
+        assertEquals(appointment.getConsultType(), createdAppointment.getConsultType());
+        assertEquals(appointment.getReason(), createdAppointment.getReason());
+        assertEquals(appointment.getStatus(), createdAppointment.getStatus());
     }
 
     @Test
@@ -165,7 +165,7 @@ public class AppointmentServicesTests {
         when(iAppointmentRepository.findAll()).thenReturn(appointments);
 
         //act
-        boolean isAvailable = appointmentService.availableDate(dateTime);
+        boolean isAvailable = appointmentService.availableDates(dateTime);
 
         assertTrue(isAvailable);
     }
@@ -180,12 +180,12 @@ public class AppointmentServicesTests {
         when(iAppointmentRepository.findAll()).thenReturn(appointments);
 
         //act
-        boolean isAvailable = appointmentService.availableDate(dateTime);
+        boolean isAvailable = appointmentService.availableDates(dateTime);
 
         assertFalse(isAvailable);
     }
     @Test
-    public void testUpdateAppointment() {
+    public void testUpdateAppointment() throws Exception {
         Appointment updateAppointment = new Appointment();
         Long idAppointment = 1L;
         LocalDateTime dateTime = LocalDateTime.now();
@@ -199,7 +199,7 @@ public class AppointmentServicesTests {
         updateAppointment.setReason(reason);
         updateAppointment.setStatus(status);
 
-        appointmentService.updateAppointment(updateAppointment, idAppointment);
+        appointmentService.updateAppointment(updateAppointment, idAppointment) ;
 
 
         verify(iAppointmentRepository, times(1)).save(updateAppointment);

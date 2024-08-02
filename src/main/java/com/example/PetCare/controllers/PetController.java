@@ -1,39 +1,46 @@
 package com.example.PetCare.controllers;
 
 
-import com.example.PetCare.services.PetService;
+import com.example.PetCare.models.Appointment;
+import com.example.PetCare.services.PetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.PetCare.exceptions.PetNotFoundException;
 import com.example.PetCare.models.Pet;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/pet")
+@RequestMapping("/api/v1/pets")
 @CrossOrigin(origins = "*")
 
 public class PetController {
     @Autowired
-    PetService petService;
+    PetServiceImpl petService;
 
-    @PostMapping(path = "/pets")
-    public Pet addNewPet(@RequestBody Pet pet) {
-        return petService.addNewPet(pet);
+    @PostMapping
+    public Pet createPet(@RequestBody Pet pet) {
+        return petService.createPet(pet);
     }
 
-    @DeleteMapping(path = "pets/{id}")
+    @GetMapping
+    public ArrayList<Pet> getAllPets() {
+        return petService.getAllPets();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Pet> getPetById(@PathVariable Long id) {
+        return petService.getPetById(id);
+    }
+
+    @DeleteMapping(path = "/{id}")
     public void deletePet(@PathVariable Long id) {
         petService.deletePet(id);
     }
 
-    @GetMapping
-    public List<Pet> listPet() {
-        return petService.listPet().stream()
-                .map(Pet::new)
-                .collect(Collectors.toList());
-    }
 
     @PutMapping("/{id}")
     public Pet updatePet(@PathVariable Long id, @RequestBody Pet petDetails) {

@@ -4,7 +4,7 @@ import com.example.PetCare.controllers.PetController;
 import com.example.PetCare.models.Appointment;
 import com.example.PetCare.models.Guardian;
 import com.example.PetCare.models.Pet;
-import com.example.PetCare.services.PetService;
+import com.example.PetCare.services.PetServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ public class PetControllersTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private PetService petService;
+    private PetServiceImpl petService;
     private PetController petController;
 
     @BeforeEach

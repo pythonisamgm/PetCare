@@ -2,7 +2,8 @@ package com.example.PetCare.controllersTest;
 
 
 import com.example.PetCare.controllers.GuardianController;
-import com.example.PetCare.services.GuardianService;
+import com.example.PetCare.services.GuardianServiceImpl;
+import com.example.PetCare.services.GuardianServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -41,7 +42,7 @@ class GuardianControllersTests {
     private MockMvc mockMvc;
 
     @Mock
-    private GuardianService guardianService;
+    private GuardianServiceImpl guardianService;
 
     @InjectMocks
     private GuardianController guardianController;
@@ -86,7 +87,7 @@ class GuardianControllersTests {
     @Test
     public void testGetByGuardiansById() {
         Guardian guardian = new Guardian(1L, "John Doe", 123456789, null);
-        when(guardianService.getByGuardiansById(1L)).thenReturn(Optional.of(guardian));
+        when(guardianService.getGuardianById(1L)).thenReturn(Optional.of(guardian));
 
         ResponseEntity<Guardian> response = guardianController.getByGuardiansById(1L);
 

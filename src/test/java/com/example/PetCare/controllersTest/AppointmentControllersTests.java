@@ -1,11 +1,11 @@
 package com.example.PetCare.controllersTest;
 
 import com.example.PetCare.controllers.AppointmentController;
-import com.example.PetCare.dto.CreateAppointmentRequest;
 import com.example.PetCare.models.Appointment;
 import com.example.PetCare.models.Pet;
 import com.example.PetCare.models.Guardian;
-import com.example.PetCare.services.AppointmentService;
+import com.example.PetCare.services.AppointmentServiceImpl;
+import com.example.PetCare.services.AppointmentServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +44,7 @@ public class AppointmentControllersTests {
 
 
     @MockBean
-    private AppointmentService appointmentService;
+    private AppointmentServiceImpl appointmentService;
     private ObjectMapper objectMapper;
 
     @InjectMocks
@@ -59,30 +59,30 @@ public class AppointmentControllersTests {
     }
     @Test
     public void testCreateAppointment_when_create_appointment() throws Exception {
-        CreateAppointmentRequest request = new CreateAppointmentRequest();
-        request.setIdPet(1L);
-        request.setDateTime(LocalDateTime.of(2024, 7, 25, 10, 0));
-        request.setConsultType("standard");
-        request.setReason("annual check up");
-        request.setStatus("past");
+        Appointment appointment = new Appointment();
+        appointment.setPetId(1L);
+        appointment.setDateTime(LocalDateTime.of(2024, 7, 25, 10, 0));
+        appointment.setConsultType("standard");
+        appointment.setReason("annual check up");
+        appointment.setStatus("past");
 
         Pet bolita = new Pet(1L, "bolita", 2, "demogorgon", "female", "conejo","url", null, null);
         Appointment newAppointment = new Appointment();
         newAppointment.setPet(bolita);
-        newAppointment.setDateTime(request.getDateTime());
-        newAppointment.setConsultType(request.getConsultType());
-        newAppointment.setReason(request.getReason());
-        newAppointment.setStatus(request.getStatus());
+        newAppointment.setDateTime(appointment.getDateTime());
+        newAppointment.setConsultType(appointment.getConsultType());
+        newAppointment.setReason(appointment.getReason());
+        newAppointment.setStatus(appointment.getStatus());
 
-        when(appointmentService.createAppoinment(request)).thenReturn(newAppointment);
+        when(appointmentService.createAppoinment(appointment)).thenReturn(newAppointment);
 
 
-        Appointment createdAppointment = appointmentController.createAppointment(request);
+        Appointment createdAppointment = appointmentController.createAppointment(appointment);
         assertEquals(bolita, createdAppointment.getPet());
-        assertEquals(request.getDateTime(), createdAppointment.getDateTime());
-        assertEquals(request.getConsultType(), createdAppointment.getConsultType());
-        assertEquals(request.getReason(), createdAppointment.getReason());
-        assertEquals(request.getStatus(), createdAppointment.getStatus());
+        assertEquals(appointment.getDateTime(), createdAppointment.getDateTime());
+        assertEquals(appointment.getConsultType(), createdAppointment.getConsultType());
+        assertEquals(appointment.getReason(), createdAppointment.getReason());
+        assertEquals(appointment.getStatus(), createdAppointment.getStatus());
 
     }
 

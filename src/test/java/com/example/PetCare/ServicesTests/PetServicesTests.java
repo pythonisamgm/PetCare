@@ -4,7 +4,7 @@ import com.example.PetCare.models.Appointment;
 import com.example.PetCare.models.Guardian;
 import com.example.PetCare.models.Pet;
 import com.example.PetCare.repositories.IPetRepository;
-import com.example.PetCare.services.PetService;
+import com.example.PetCare.services.PetServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -25,7 +25,7 @@ class PetServicesTests {
     private IPetRepository iPetRepository;
 
     @InjectMocks
-    private PetService petService;
+    private PetServiceImpl petService;
 
     @BeforeEach
     void setUp() {

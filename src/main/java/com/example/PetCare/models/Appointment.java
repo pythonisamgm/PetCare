@@ -32,14 +32,14 @@ public class Appointment {
     @Column(name = "reason of the appointment", nullable = false)
     private String reason;
 
+
     @Column(name = "appointment status", nullable = false)
-    private boolean status;
+    private boolean past;
 
     @JsonIgnoreProperties("appointmentsList")
     @ManyToOne
     @JoinColumn (name = "idPet", nullable = false)
     private Pet pet;
-
 
 }
 
