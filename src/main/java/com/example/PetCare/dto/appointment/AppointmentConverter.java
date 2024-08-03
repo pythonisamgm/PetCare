@@ -22,7 +22,7 @@ public class AppointmentConverter {
         return modelMapper.map(typeDTO, Appointment.class);
     }
     public PostAppointmentDTO appointmentToPostDTO(Appointment appointment){
-        return modelMapper.map(appointment, PostAppointmentDTO.class)
+        return modelMapper.map(appointment, PostAppointmentDTO.class);
     }
     public Appointment postDtoToAppointment(PostAppointmentDTO postAppointmentDTO){
         return modelMapper.map(postAppointmentDTO, Appointment.class);

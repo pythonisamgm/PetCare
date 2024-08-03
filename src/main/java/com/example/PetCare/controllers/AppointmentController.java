@@ -69,15 +69,31 @@ public class AppointmentController {
     @GetMapping("/pastAppointments")
     public List<AppointmentDTO> getPastAppointments() {
         logger.info("GET /api/v1/appointments/pastAppointments");
-        return appointmentService.getPastAppointments();
-    }
-    @GetMapping("/futureAppointments")
-    public List<Appointment> getFutureAppointments(@RequestParam boolean past) {
-        return appointmentService.getFutureAppointments();
-    }
-    @PutMapping(path = "/{id}")
-    public void updateAppointment(@RequestBody Appointment appointment, @PathVariable Long id) throws Exception{
-        appointmentService.updateAppointment(appointment, id);
+        List<Appointment> pastAppointments = appointmentService.getPastAppointments();
+        return pastAppointments.stream()
+                .map(appointmentConverter::appointmentToDto)
+                .collect(Collectors.toList());
     }
 
+    @GetMapping("/futureAppointments")
+    public List<AppointmentDTO> getFutureAppointments(@RequestParam boolean past) {
+        logger.info("GET /api/v1/appointments/pastAppointments");
+        List<Appointment> futureAppointments = appointmentService.getPastAppointments();
+        return futureAppointments.stream()
+                .map(appointmentConverter::appointmentToDto)
+                .collect(Collectors.toList());
+    }
+
+    @PutMapping(path = "/{id}")
+    public void updateAppointment(@RequestBody PostAppointmentDTO postAppointmentDTO, @PathVariable Long id) throws Exception {
+        logger.info("PUT /api/v1/appointments/{} --> {}", id, postAppointmentDTO.toString());
+        Appointment appointment = appointmentConverter.postDtoToAppointment(postAppointmentDTO);
+        appointmentService.updateAppointment(appointment, id);
+    }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAppointment(@PathVariable Long id) {
+        logger.info("DELETE /api/v1/appointments/{}", id);
+        appointmentService.deleteAppointment(id);
+    }
 }
