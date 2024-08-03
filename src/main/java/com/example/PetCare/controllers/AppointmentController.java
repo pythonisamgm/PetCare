@@ -41,6 +41,7 @@ public class AppointmentController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<AppointmentDTO> getAllAppointments() {
         logger.info("GET /api/v1/appointments");
         List<Appointment> appointments = appointmentService.getAllAppointments();
@@ -51,6 +52,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<AppointmentDTO> getAppointmentById(@PathVariable Long id) {
         logger.info("GET /api/v1/appointments/" + id);
         Optional<Appointment> appointment = appointmentService.getAppointmentById(id);
@@ -58,6 +60,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/type")
+    @ResponseStatus(HttpStatus.OK)
     public List<AppointmentDTO> getAppointmentByType(@RequestParam String typeConsult) {
         logger.info("GET /api/v1/appointments/type?typeConsult=" + typeConsult);
         List<Appointment> appointments = appointmentService.getAppointmentByType(typeConsult);
@@ -67,6 +70,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/pastAppointments")
+    @ResponseStatus(HttpStatus.OK)
     public List<AppointmentDTO> getPastAppointments() {
         logger.info("GET /api/v1/appointments/pastAppointments");
         List<Appointment> pastAppointments = appointmentService.getPastAppointments();
@@ -76,6 +80,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/futureAppointments")
+    @ResponseStatus(HttpStatus.OK)
     public List<AppointmentDTO> getFutureAppointments(@RequestParam boolean past) {
         logger.info("GET /api/v1/appointments/pastAppointments");
         List<Appointment> futureAppointments = appointmentService.getPastAppointments();
@@ -85,15 +90,17 @@ public class AppointmentController {
     }
 
     @PutMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void updateAppointment(@RequestBody PostAppointmentDTO postAppointmentDTO, @PathVariable Long id) throws Exception {
         logger.info("PUT /api/v1/appointments/{} --> {}", id, postAppointmentDTO.toString());
-        Appointment appointment = appointmentConverter.postDtoToAppointment(postAppointmentDTO);
-        appointmentService.updateAppointment(appointment, id);
+        Appointment request = appointmentConverter.postDtoToAppointment(postAppointmentDTO);
+        appointmentService.updateAppointment(request, id);
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAppointment(@PathVariable Long id) {
         logger.info("DELETE /api/v1/appointments/{}", id);
-        appointmentService.deleteAppointment(id);
+        AppointmentDTO response = appointmentConverter.appointmentToDto(appointmentService.deleteAppointment(id);)
+        //appointmentService.deleteAppointment(id);
     }
 }
