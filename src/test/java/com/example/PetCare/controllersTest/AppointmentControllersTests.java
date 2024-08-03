@@ -60,7 +60,7 @@ public class AppointmentControllersTests {
     @Test
     public void testCreateAppointment_when_create_appointment() throws Exception {
         Appointment appointment = new Appointment();
-        appointment.setPetId(1L);
+        appointment.setAppointmentId(1L);
         appointment.setDateTime(LocalDateTime.of(2024, 7, 25, 10, 0));
         appointment.setConsultType("standard");
         appointment.setReason("annual check up");

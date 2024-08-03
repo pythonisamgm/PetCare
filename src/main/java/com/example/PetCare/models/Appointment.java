@@ -23,7 +23,7 @@ public class Appointment {
     @Column(name = "id appointment")
     private Long appointmentId;
 
-    @Column(name = "date and time", nullable = false)
+    @Column(name = "date and time", nullable = false, unique = true)
     private LocalDateTime dateTime;
 
     @Column(name = "standard/urgent consultation", nullable = false)
@@ -31,7 +31,6 @@ public class Appointment {
 
     @Column(name = "reason of the appointment", nullable = false)
     private String reason;
-
 
     @Column(name = "appointment status", nullable = false)
     private boolean past;

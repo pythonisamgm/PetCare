@@ -7,7 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+//import jakarta.validation.constraints.Email;
 import org.antlr.v4.runtime.misc.NotNull;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -29,7 +33,11 @@ public class Guardian {
 
     @Column(name = "telephone number", nullable = false)
     private int telephoneNumber;
-
+    //@Email
+    @Column(nullable = false)
+    private String email;
+    @Column
+    private LocalDateTime sysRegistryDate;
     @JsonIgnoreProperties("guardiansList")
     @ManyToOne
     @JoinColumn (name = "idPet", nullable = false)
