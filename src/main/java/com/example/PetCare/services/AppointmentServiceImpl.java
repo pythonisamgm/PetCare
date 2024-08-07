@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AppointmentServiceImpl implements AppointmentService {
+public class AppointmentServiceImpl implements AppointmentService{
 
     @Autowired
     IAppointmentRepository iAppointmentRepository;
@@ -57,7 +57,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void updateAppointment(Appointment appointment, Long id) throws Exception{
+    public void updateAppointment(Appointment appointment, Long id) throws Exception {
         Optional<Appointment> existingAppointmentOpt = iAppointmentRepository.findById(id);
         if (!existingAppointmentOpt.isPresent()) {
             throw new Exception("Appointment not found");
@@ -85,13 +85,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
 
-
+    @Override
     public List<Appointment> getFutureAppointments() {
         return getAllAppointments()
                 .stream()
                 .filter(c -> !c.isPast())
                 .collect(Collectors.toList());
     }
+
+    @Override
     public List<Appointment> getPastAppointments() {
         return getAllAppointments()
                 .stream()
@@ -99,10 +101,12 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public void deleteAppointment(Long id) {
         iAppointmentRepository.deleteById(id);
     }
 
+    @Override
     public boolean availableDates(LocalDateTime localDateTime) {
         List<Appointment> appointments = (List<Appointment>) iAppointmentRepository.findAll();
         for (Appointment app : appointments) {
@@ -112,6 +116,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         return true;
     }
+
+    @Override
     public boolean availableDatesForUpdate(LocalDateTime dateTime, Long appointmentId) {
         List<Appointment> appointments = (List<Appointment>) iAppointmentRepository.findAll();
         for (Appointment app : appointments) {
@@ -121,6 +127,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         return true;
     }
+
     @Override
     public boolean updateStatusAsPast(Long id) {
         Optional<Appointment> appointmentOptional = iAppointmentRepository.findById(id);

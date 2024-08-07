@@ -1,17 +1,17 @@
 package com.example.PetCare.dto.guardian;
 
 import com.example.PetCare.dto.pet.PetDTO;
-import jakarta.persistence.Column;
 import lombok.*;
 
 import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-public class GuardianDTO {
+public class PostGuardianDTO {
     private Long guardianId;
     private String guardianName;
     private int telephoneNumber;

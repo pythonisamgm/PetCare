@@ -19,12 +19,11 @@ public class PostAppointmentDTO {
 
 
     private Long appointmentId;
-
     private LocalDateTime dateTime;
     //@NotBlank(message = "Consult type is required.")
     //private String consultType;
     //@NotBlank(message = "Insert a detailed description")
-    //private String reason;
+    private String reason;
     private boolean past;
     //@NotNull (message = "Pet is required.")
     private PetDTO pet;

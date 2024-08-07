@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class GuardianServiceImpl implements GuardianService {
+public class GuardianServiceImpl implements GuardianService{
 
     @Autowired
     IGuardianRepository iGuardianRepository;
@@ -40,5 +40,15 @@ public class GuardianServiceImpl implements GuardianService {
 
     public void deleteGuardian(Long id) {
         iGuardianRepository.deleteById(id);
+    }
+
+    @Override
+    public Guardian getGuardianByEmail(String email) {
+        return null;
+    }
+
+    @Override
+    public Optional<Guardian> getGuardianByName(String guardianName) {
+        return Optional.empty();
     }
 }

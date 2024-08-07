@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 public class AppointmentDTO {
 
-    private Long id;
+    private Long appointmentId;
     private LocalDateTime dateTime;
     private String consultType;
     private String reason;

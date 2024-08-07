@@ -83,7 +83,7 @@ public class AppointmentController {
     @ResponseStatus(HttpStatus.OK)
     public List<AppointmentDTO> getFutureAppointments(@RequestParam boolean past) {
         logger.info("GET /api/v1/appointments/pastAppointments");
-        List<Appointment> futureAppointments = appointmentService.getPastAppointments();
+        List<Appointment> futureAppointments = appointmentService.getFutureAppointments();
         return futureAppointments.stream()
                 .map(appointmentConverter::appointmentToDto)
                 .collect(Collectors.toList());
