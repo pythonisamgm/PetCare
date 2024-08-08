@@ -26,5 +26,11 @@ public class GuardianConverter {
     public Guardian postDtoToGuardian(PostGuardianDTO postGuardianDTO){
         return modelMapper.map(postGuardianDTO, Guardian.class);
     }
+    public GuardianContactDetailsDTO guardianDetails(Guardian guardian){
+        return modelMapper.map(guardian, GuardianContactDetailsDTO.class);
+    }
+    /*public Guardian guardianDetailsToDto (GuardianContactDetailsDTO guardianDetails){
+        return modelMapper.map(GuardianContactDetailsDTO, Guardian.class);
+    }*/
 
 }
