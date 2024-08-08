@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class GuardianServiceImpl implements GuardianService{
+public class GuardianServiceImpl implements GuardianService {
 
     @Autowired
     IGuardianRepository iGuardianRepository;
@@ -21,11 +21,15 @@ public class GuardianServiceImpl implements GuardianService{
         return iGuardianRepository.save(guardian);
     }
 
-    public Optional<Guardian> getGuardianById(Long id) { return iGuardianRepository.findById(id); }
+    public Optional<Guardian> getGuardianById(Long id) {
+        return iGuardianRepository.findById(id);
+    }
 
-    public ArrayList<Guardian> getAllGuardians() { return (ArrayList<Guardian>) iGuardianRepository.findAll(); }
+    public ArrayList<Guardian> getAllGuardians() {
+        return (ArrayList<Guardian>) iGuardianRepository.findAll();
+    }
 
-    public Guardian updateGuardian(Long id, Guardian newGuardian) throws Exception{
+    public Guardian updateGuardian(Long id, Guardian newGuardian) throws Exception {
         Optional<Guardian> optionalOldGuardian = iGuardianRepository.findById(id);
         if (!optionalOldGuardian.isPresent()) {
             throw new Exception("Guardian not found");
@@ -49,6 +53,11 @@ public class GuardianServiceImpl implements GuardianService{
 
     @Override
     public Optional<Guardian> getGuardianByName(String guardianName) {
-        return Optional.empty();
+        return iGuardianRepository.getGuardianByName(guardianName);
+    }
+
+    @Override
+    public Optional<Guardian> getGuardianByMail(String email) {
+        return iGuardianRepository.getGuardianByMail(email);
     }
 }

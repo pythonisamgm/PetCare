@@ -13,4 +13,5 @@ public interface GuardianService {
     public void deleteGuardian(Long id);
     public Guardian getGuardianByEmail(String email);
     public Optional<Guardian> getGuardianByName(String guardianName);
+    public Optional<Guardian> getGuardianByMail(String email);
 }
