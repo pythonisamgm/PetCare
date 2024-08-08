@@ -100,7 +100,6 @@ public class AppointmentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAppointment(@PathVariable Long id) {
         logger.info("DELETE /api/v1/appointments/{}", id);
-        AppointmentDTO response = appointmentConverter.appointmentToDto(appointmentService.deleteAppointment(id);)
-        //appointmentService.deleteAppointment(id);
+        appointmentService.deleteAppointment(id);
     }
 }
