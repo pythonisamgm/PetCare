@@ -10,7 +10,7 @@ public interface PetService{
     public Pet createPet(Pet pet);
     public ArrayList<Pet> getAllPets();
     public Optional<Pet> getPetById(Long id);
-    public Pet updatePet(Long id, Pet pet);
+    public Pet updatePet(Long id, Pet pet) throws Exception;
     public void deletePet(Long id);
     Optional<Pet> getPetByName(String petName);
     public List<Pet> getAllPetsByAge(int age);
