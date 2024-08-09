@@ -17,18 +17,19 @@ public class PetServiceImpl  implements PetService {
     @Autowired
     IPetRepository iPetRepository;
 
-
+    @Override
     public Pet createPet(Pet pet) { return iPetRepository.save(pet);}
-
+    @Override
     public ArrayList<Pet> getAllPets() {
         return (ArrayList<Pet>)iPetRepository.findAll();
     }
+    @Override
     public Optional<Pet> getPetById(Long id) {
         return iPetRepository.findById(id);
     }
 
 
-
+    @Override
     public Pet updatePet(Long id, Pet newPet) throws Exception{
         Optional<Pet> optionalOldPet = iPetRepository.findById(id);
         if (!optionalOldPet.isPresent()){
@@ -42,7 +43,7 @@ public class PetServiceImpl  implements PetService {
         oldPet.setAge(newPet.getAge());
         return iPetRepository.save(oldPet);
     }
-
+    @Override
     public void deletePet(Long id){
         iPetRepository.deleteById(id);
     }
