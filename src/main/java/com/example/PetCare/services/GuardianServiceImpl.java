@@ -1,8 +1,6 @@
 package com.example.PetCare.services;
 
-import com.example.PetCare.models.Appointment;
 import com.example.PetCare.models.Guardian;
-import com.example.PetCare.models.Pet;
 import com.example.PetCare.repositories.IGuardianRepository;
 import com.example.PetCare.services.interfaces.GuardianService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +44,7 @@ public class GuardianServiceImpl implements GuardianService {
         iGuardianRepository.deleteById(id);
     }
 
-    @Override
-    public Guardian getGuardianByEmail(String email) {
-        return null;
-    }
+
 
     @Override
     public Optional<Guardian> getGuardianByName(String guardianName) {
@@ -58,6 +53,11 @@ public class GuardianServiceImpl implements GuardianService {
 
     @Override
     public Optional<Guardian> getGuardianByMail(String email) {
-        return iGuardianRepository.getGuardianByMail(email);
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Guardian> getGuardianByEmail(String email) {
+        return iGuardianRepository.getGuardianByEmail(email);
     }
 }
