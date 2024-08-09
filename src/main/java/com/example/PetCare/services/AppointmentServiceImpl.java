@@ -24,7 +24,7 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public Appointment createAppoinment(Appointment appointment) throws Exception {
-        Optional<Pet> optionalPet = iPetRepository.findById(appointment.getPet().getPetId();
+        Optional<Pet> optionalPet = iPetRepository.findById(appointment.getPet().getPetId());
         if (!optionalPet.isPresent()) {
             throw new Exception("Pet not found");
         }
