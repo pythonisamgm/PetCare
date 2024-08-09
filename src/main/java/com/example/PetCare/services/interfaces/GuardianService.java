@@ -11,7 +11,6 @@ public interface GuardianService {
     public ArrayList<Guardian> getAllGuardians();
     public Guardian updateGuardian(Long id, Guardian newGuardian) throws Exception;
     public void deleteGuardian(Long id);
-    public Optional<Guardian> getGuardianByEmail(String email);
     public Optional<Guardian> getGuardianByName(String guardianName);
     public Optional<Guardian> getGuardianByMail(String email);
 }

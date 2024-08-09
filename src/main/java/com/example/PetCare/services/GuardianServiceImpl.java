@@ -54,11 +54,8 @@ public class GuardianServiceImpl implements GuardianService {
 
     @Override
     public Optional<Guardian> getGuardianByMail(String email) {
-        return Optional.empty();
+        return iGuardianRepository.getGuardianByMail(email);
     }
 
-    @Override
-    public Optional<Guardian> getGuardianByEmail(String email) {
-        return iGuardianRepository.getGuardianByEmail(email);
-    }
+
 }
