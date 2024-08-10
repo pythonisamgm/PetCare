@@ -1,15 +1,17 @@
 package com.example.PetCare.dto.pet;
 
+import com.example.PetCare.dto.appointment.AppointmentDTO;
 import com.example.PetCare.dto.guardian.GuardianDTO;
 import com.example.PetCare.models.Appointment;
-import com.example.PetCare.models.Guardian;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
+import lombok.*;
 
 import java.util.ArrayList;
-import java.util.List;
-
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
 public class PetDTO{
     private Long petId;
     private String petName;
@@ -19,5 +21,5 @@ public class PetDTO{
     private String species;
     private String url;
     private GuardianDTO guardian;
-    private ArrayList<Appointment> appointments;
+    private ArrayList<AppointmentDTO> appointments;
 }
