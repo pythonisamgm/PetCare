@@ -1,9 +1,9 @@
 package com.example.PetCare.dto.guardian;
 
-import com.example.PetCare.dto.appointment.PostAppointmentDTO;
-import com.example.PetCare.models.Appointment;
+
+import com.example.PetCare.dto.pet.PetDTO;
 import com.example.PetCare.models.Guardian;
-import org.hibernate.annotations.Comment;
+import com.example.PetCare.models.Pet;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,10 +15,22 @@ public class GuardianConverter {
     private ModelMapper modelMapper;
 
     public GuardianDTO guardianToDto(Guardian guardian){
-        return modelMapper.map(guardian, GuardianDTO.class);
+        GuardianDTO guardianDTO = modelMapper.map(guardian, GuardianDTO.class);
+
+        if (guardian.getPet() !=null){
+            PetDTO petDTO = modelMapper.map(guardian.getPet(), PetDTO.class);
+            guardianDTO.setPet(petDTO);
+
+        }
+    return guardianDTO;
     }
     public Guardian dtoToGuardian(GuardianDTO guardianDTO){
-        return modelMapper.map(guardianDTO, Guardian.class);
+        Guardian guardian = modelMapper.map(guardianDTO, Guardian.class);
+
+        if (guardianDTO.getPet() != null){
+            guardian.setPet(modelMapper.map(guardianDTO.getPet(), Pet.class));
+
+        } return guardian;
     }
     public PostGuardianDTO guardianToPostDTO(Guardian guardian){
         return modelMapper.map(guardian, PostGuardianDTO.class);
@@ -29,8 +41,8 @@ public class GuardianConverter {
     public GuardianContactDetailsDTO guardianDetails(Guardian guardian){
         return modelMapper.map(guardian, GuardianContactDetailsDTO.class);
     }
-    /*public Guardian guardianDetailsToDto (GuardianContactDetailsDTO guardianDetails){
-        return modelMapper.map(GuardianContactDetailsDTO, Guardian.class);
-    }*/
+    public Guardian guardianDetailsToDto (GuardianContactDetailsDTO guardianDetails){
+        return modelMapper.map(guardianDetails, Guardian.class);
+    }
 
 }

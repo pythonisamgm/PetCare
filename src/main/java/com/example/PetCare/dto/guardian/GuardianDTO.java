@@ -1,7 +1,6 @@
 package com.example.PetCare.dto.guardian;
 
 import com.example.PetCare.dto.pet.PetDTO;
-import jakarta.persistence.Column;
 import lombok.*;
 
 import java.time.LocalDateTime;
