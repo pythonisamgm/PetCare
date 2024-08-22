@@ -13,6 +13,7 @@ public interface PetService{
     public Pet updatePet(Long id, Pet pet) throws Exception;
     public void deletePet(Long id);
     Optional<Pet> getPetByName(String petName);
-    public List<Pet> getAllPetsByAge(int age);
+    public List<Pet> getAllPetsOlderThan(int age);
+    public List<Pet> getAllPetsYoungerThan(int age);
     public List<Pet> getAllPetsBySpecies(String species);
 }

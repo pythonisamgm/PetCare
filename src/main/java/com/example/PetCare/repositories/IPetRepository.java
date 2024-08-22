@@ -11,7 +11,9 @@ import java.util.Optional;
 public interface IPetRepository extends CrudRepository<Pet,Long>  {
 
     Optional<Pet> getPetByName(String petName);
-    public List<Pet> getAllPetsByAge(int age);
+    public List<Pet> getAllPetsOlderThan(int age);
+    public List<Pet> getAllPetsYoungerThan(int age);
+
     public List<Pet> getAllPetsBySpecies(String species);
 
 }
