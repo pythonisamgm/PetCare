@@ -1,16 +1,19 @@
 package com.example.PetCare.services.interfaces;
 
+import com.example.PetCare.dto.guardian.GuardianDTO;
+import com.example.PetCare.dto.guardian.PostGuardianDTO;
 import com.example.PetCare.models.Guardian;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public interface GuardianService {
-    public Guardian createGuardian(Guardian guardian) throws Exception;
-    public Optional<Guardian> getGuardianById(Long id);
-    public ArrayList<Guardian> getAllGuardians();
-    public Guardian updateGuardian(Long id, Guardian newGuardian) throws Exception;
+    public GuardianDTO createGuardian(PostGuardianDTO postGuardianDTO) throws Exception;
+    public GuardianDTO getGuardianById(Long id);
+    public List<GuardianDTO> getAllGuardians();
+    public GuardianDTO updateGuardian(Long id, GuardianDTO newGuardianDTO) throws Exception;
     public void deleteGuardian(Long id);
-    public Optional<Guardian> getGuardianByName(String guardianName);
-    public Optional<Guardian> getGuardianByMail(String email);
+    public GuardianDTO getGuardianByName(String guardianName);
+    public GuardianDTO getGuardianByMail(String email);
 }

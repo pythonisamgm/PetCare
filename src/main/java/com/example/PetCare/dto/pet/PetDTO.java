@@ -2,10 +2,9 @@ package com.example.PetCare.dto.pet;
 
 import com.example.PetCare.dto.appointment.AppointmentDTO;
 import com.example.PetCare.dto.guardian.GuardianDTO;
-import com.example.PetCare.models.Appointment;
 import lombok.*;
-
 import java.util.ArrayList;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -23,3 +22,4 @@ public class PetDTO{
     private GuardianDTO guardian;
     private ArrayList<AppointmentDTO> appointments;
 }
+

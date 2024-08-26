@@ -1,5 +1,9 @@
 package com.example.PetCare.services;
 
+import com.example.PetCare.dto.guardian.GuardianDTO;
+import com.example.PetCare.dto.pet.PetConverter;
+import com.example.PetCare.dto.pet.PetDTO;
+import com.example.PetCare.dto.pet.PostPetDTO;
 import com.example.PetCare.models.Appointment;
 import com.example.PetCare.models.Guardian;
 import com.example.PetCare.models.Pet;
@@ -19,43 +23,61 @@ public class PetServiceImpl  implements PetService {
     @Autowired
     IPetRepository iPetRepository;
 
+    @Autowired
+    PetConverter petConverter;
+
     @Override
-    public Pet createPet(Pet pet) { return iPetRepository.save(pet);}
+    public PetDTO createPet(PostPetDTO postPetDTO) {
+        Pet pet = petConverter.postDtoToEntity(postPetDTO);
+        Pet savedPet = iPetRepository.save(pet);
+
+        return petConverter.entityToDTO(savedPet);}
     @Override
-    public ArrayList<Pet> getAllPets() {
-        return (ArrayList<Pet>)iPetRepository.findAll();
+    public List<PetDTO> getAllPets() {
+        List<Pet> pets = (List<Pet>) iPetRepository.findAll();
+
+        return pets.stream()
+                .map(petConverter::entityToDTO)
+                .collect(Collectors.toList());
     }
     @Override
-    public Optional<Pet> getPetById(Long id) {
-        return iPetRepository.findById(id);
+    public Optional<PetDTO> getPetById(Long id) {
+        Optional<Pet> pet = iPetRepository.findById(id);
+        return pet.map(petConverter::entityToDTO);
     }
 
 
     @Override
-    public Pet updatePet(Long id, Pet newPet) throws Exception{
+    public PetDTO updatePet(Long id, PetDTO newPetDTO) throws Exception{
         Optional<Pet> optionalOldPet = iPetRepository.findById(id);
         if (!optionalOldPet.isPresent()){
             throw new Exception("Pet not found");
         }
         Pet oldPet = optionalOldPet.get();
-        oldPet.setPetName(newPet.getPetName());
-        oldPet.setBreed(newPet.getBreed());
-        oldPet.setSpecies(newPet.getSpecies());
-        oldPet.setGender(newPet.getGender());
-        oldPet.setAge(newPet.getAge());
-        return iPetRepository.save(oldPet);
+        oldPet.setPetName(newPetDTO.getPetName());
+        oldPet.setBreed(newPetDTO.getBreed());
+        oldPet.setSpecies(newPetDTO.getSpecies());
+        oldPet.setGender(newPetDTO.getGender());
+        oldPet.setAge(newPetDTO.getAge());
+        Pet updatedPet = iPetRepository.save(oldPet);
+
+        return petConverter.entityToDTO(updatedPet);
     }
+
     @Override
     public void deletePet(Long id){
         iPetRepository.deleteById(id);
     }
 
     @Override
-    public Optional<Pet> getPetByName(String petName) {
-        return iPetRepository.getPetByName(petName);}
+    public PetDTO getPetByName(String petName) {
+        Pet pet = iPetRepository.getPetByName(petName);
+        return petConverter.entityToDTO(pet);}
+
+
 
     @Override
-    public List<Pet> getAllPetsOlderThan(int age) {
+    public List<PetDTO> getAllPetsOlderThan(int age) {
         return getAllPets()
                 .stream()
                 .filter(pet -> pet.getAge() >= age)
@@ -63,7 +85,7 @@ public class PetServiceImpl  implements PetService {
     }
 
     @Override
-    public List<Pet> getAllPetsYoungerThan(int age) {
+    public List<PetDTO> getAllPetsYoungerThan(int age) {
         return getAllPets()
                 .stream()
                 .filter(pet -> pet.getAge() < age)
@@ -72,7 +94,7 @@ public class PetServiceImpl  implements PetService {
 
 
     @Override
-    public List<Pet> getAllPetsBySpecies(String species) {
+    public List<PetDTO> getAllPetsBySpecies(String species) {
         return getAllPets()
                 .stream()
                 .filter(c -> species.equals(c.getSpecies()))

@@ -1,6 +1,7 @@
 package com.example.PetCare.dto.guardian;
 
 import com.example.PetCare.dto.pet.PetDTO;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ public class GuardianDTO {
     private Long guardianId;
     private String guardianName;
     private int telephoneNumber;
-    //@Email
+    @Email
     private String email;
     private LocalDateTime sysRegistryDate;
     private PetDTO pet;

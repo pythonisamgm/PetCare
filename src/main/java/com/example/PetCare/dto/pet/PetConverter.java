@@ -52,7 +52,8 @@ public class PetConverter {
     public PetContactDetailsDTO petToContactDetailsDTO(Pet pet){
         PetContactDetailsDTO petContactDetailsDTO = modelMapper.map(pet, PetContactDetailsDTO.class);
         if (pet.getGuardiansList() != null && !pet.getGuardiansList().isEmpty()){
-            GuardianContactDetailsDTO guardianDTO = modelMapper.map(pet.getGuardiansList().get(0), GuardianContactDetailsDTO.class);
+            GuardianContactDetailsDTO guardianDTO = modelMapper.map(pet.getGuardiansList().get(0),
+                    GuardianContactDetailsDTO.class);
             petContactDetailsDTO.setGuardian(guardianDTO);
         }
         return petContactDetailsDTO;

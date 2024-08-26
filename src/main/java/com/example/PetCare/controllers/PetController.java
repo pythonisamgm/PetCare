@@ -2,10 +2,12 @@ package com.example.PetCare.controllers;
 
 
 import com.example.PetCare.dto.appointment.AppointmentDTO;
+import com.example.PetCare.dto.guardian.PostGuardianDTO;
 import com.example.PetCare.dto.pet.PetConverter;
 import com.example.PetCare.dto.pet.PetDTO;
 import com.example.PetCare.dto.pet.PostPetDTO;
 import com.example.PetCare.models.Appointment;
+import com.example.PetCare.models.Guardian;
 import com.example.PetCare.services.PetServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +69,8 @@ public class PetController {
 
 
     @PutMapping("/{id}")
-    public Pet updatePet(@PathVariable Long id, @RequestBody Pet petDetails) {
+    public Pet updatePet(@PathVariable Long id, @RequestBody Pet petDetails) throws Exception{
+        logger.info("PUT /api/v1/pets/{id}");
         Pet existingPet = petService.getPetById(id)
                 .orElseThrow(() -> new PetNotFoundException("Pet not found with id: " + id));
 
@@ -78,6 +81,12 @@ public class PetController {
         existingPet.setSpecies(petDetails.getSpecies());
         existingPet.setUrl(petDetails.getUrl());
 
-        return petService.updatePet(existingPet);
+        return petService.updatePet(id, existingPet);
+    }
+    @PutMapping(path = "/{id}")
+    public void updateGuardian(@RequestBody PostGuardianDTO postGuardianDTO, @PathVariable Long id) throws Exception {
+        logger.info("PUT /api/v1/guardians/{} --> {}", id, postGuardianDTO.toString());
+        Guardian request = guardianConverter.postDtoToGuardian(postGuardianDTO);
+        guardianService.updateGuardian(id, request);
     }
 }

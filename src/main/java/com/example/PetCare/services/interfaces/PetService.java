@@ -1,5 +1,7 @@
 package com.example.PetCare.services.interfaces;
 
+import com.example.PetCare.dto.pet.PetDTO;
+import com.example.PetCare.dto.pet.PostPetDTO;
 import com.example.PetCare.models.Pet;
 
 import java.util.ArrayList;
@@ -7,13 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PetService{
-    public Pet createPet(Pet pet);
-    public ArrayList<Pet> getAllPets();
-    public Optional<Pet> getPetById(Long id);
-    public Pet updatePet(Long id, Pet pet) throws Exception;
+    public PetDTO createPet(PostPetDTO postPetDTO);
+    public List<PetDTO> getAllPets();
+    public Optional<PetDTO> getPetById(Long id);
+    public PetDTO updatePet(Long id, PetDTO petDTO) throws Exception;
     public void deletePet(Long id);
-    Optional<Pet> getPetByName(String petName);
-    public List<Pet> getAllPetsOlderThan(int age);
-    public List<Pet> getAllPetsYoungerThan(int age);
-    public List<Pet> getAllPetsBySpecies(String species);
+    public PetDTO getPetByName(String petName);
+    public List<PetDTO> getAllPetsOlderThan(int age);
+    public List<PetDTO> getAllPetsYoungerThan(int age);
+    public List<PetDTO> getAllPetsBySpecies(String species);
 }

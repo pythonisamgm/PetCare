@@ -19,82 +19,61 @@ import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api/v1/appointments")
 @CrossOrigin(origins = "*")
-
 public class AppointmentController {
     private static final Logger logger = LoggerFactory.getLogger(AppointmentController.class);
 
     @Autowired
     AppointmentServiceImpl appointmentService;
 
-    @Autowired
-    private AppointmentConverter appointmentConverter;
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AppointmentDTO createAppointment(@RequestBody PostAppointmentDTO postAppointmentDTO) throws Exception {
         logger.info("POST /api/v1/appointments --> " + postAppointmentDTO.toString());
-        Appointment appointment = appointmentConverter.postDtoToAppointment(postAppointmentDTO);
-        Appointment createdAppointment = appointmentService.createAppoinment(appointment);
-        return appointmentConverter.appointmentToDto(createdAppointment);
-
+        return appointmentService.createAppointment(postAppointmentDTO);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<AppointmentDTO> getAllAppointments() {
         logger.info("GET /api/v1/appointments");
-        List<Appointment> appointments = appointmentService.getAllAppointments();
-        return appointments.stream()
-                .map(appointmentConverter::appointmentToDto)
-                .collect(Collectors.toList());
-
+        return appointmentService.getAllAppointments();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<AppointmentDTO> getAppointmentById(@PathVariable Long id) {
         logger.info("GET /api/v1/appointments/" + id);
-        Optional<Appointment> appointment = appointmentService.getAppointmentById(id);
-        return appointment.map(appointmentConverter::appointmentToDto);
+        return appointmentService.getAppointmentById(id);
     }
 
     @GetMapping("/type")
     @ResponseStatus(HttpStatus.OK)
     public List<AppointmentDTO> getAppointmentByType(@RequestParam String typeConsult) {
         logger.info("GET /api/v1/appointments/type?typeConsult=" + typeConsult);
-        List<Appointment> appointments = appointmentService.getAppointmentByType(typeConsult);
-        return appointments.stream()
-                .map(appointmentConverter::appointmentToDto)
-                .collect(Collectors.toList());
+        return appointmentService.getAppointmentByType(typeConsult);
     }
 
     @GetMapping("/pastAppointments")
     @ResponseStatus(HttpStatus.OK)
     public List<AppointmentDTO> getPastAppointments() {
         logger.info("GET /api/v1/appointments/pastAppointments");
-        List<Appointment> pastAppointments = appointmentService.getPastAppointments();
-        return pastAppointments.stream()
-                .map(appointmentConverter::appointmentToDto)
-                .collect(Collectors.toList());
+        return appointmentService.getPastAppointments();
     }
 
     @GetMapping("/futureAppointments")
     @ResponseStatus(HttpStatus.OK)
-    public List<AppointmentDTO> getFutureAppointments(@RequestParam boolean past) {
-        logger.info("GET /api/v1/appointments/pastAppointments");
-        List<Appointment> futureAppointments = appointmentService.getFutureAppointments();
-        return futureAppointments.stream()
-                .map(appointmentConverter::appointmentToDto)
-                .collect(Collectors.toList());
+    public List<AppointmentDTO> getFutureAppointments() {
+        logger.info("GET /api/v1/appointments/futureAppointments");
+        return appointmentService.getFutureAppointments();
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateAppointment(@RequestBody PostAppointmentDTO postAppointmentDTO, @PathVariable Long id) throws Exception {
-        logger.info("PUT /api/v1/appointments/{} --> {}", id, postAppointmentDTO.toString());
-        Appointment request = appointmentConverter.postDtoToAppointment(postAppointmentDTO);
-        appointmentService.updateAppointment(request, id);
+    public void updateAppointment(@RequestBody AppointmentDTO appointmentDTO, @PathVariable Long id) throws Exception {
+        logger.info("PUT /api/v1/appointments/{} --> {}", id, appointmentDTO.toString());
+        appointmentService.updateAppointment(appointmentDTO, id);
     }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAppointment(@PathVariable Long id) {
